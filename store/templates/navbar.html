@@ -1,0 +1,45 @@
+<nav class="navbar sticky-top navbar-expand-md navbar-dark bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a href="{% url 'home' %}" class="navbar-brand"><h1 class="text-primary display-6 ps-3">میوه فروشی</h1></a>
+
+        <div class="collapse navbar-collapse justify-content-between" style="direction: rtl" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item mx-1">
+                    <a class="nav-link active text-black-50" aria-current="page" href="{% url 'home' %}">خانــه</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-black-50" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">محصولات </a>
+                    <ul class="dropdown-menu text-end">
+                        <li><a class="dropdown-item" href="#">همه محصولات</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">میوه جات</a></li>
+                        <li><a class="dropdown-item" href="#">سبزیجات</a></li>
+                        <li><a class="dropdown-item" href="#">تخفیف ویژه</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex" role="search" action="">
+                <input class="form-control me-0" type="search" placeholder="جستجوی محصول" name="search" aria-label="Search">
+                <button class="btn btn-light btn-outline-dark" type="submit">جستجو</button>
+            </form>
+            <ul class="navbar-nav d-flex">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-black-50" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">کاربر </a>
+                    <ul class="dropdown-menu text-end" aria-labelledby="profileDropdown">
+                        <li><a class="dropdown-item" href="#">صفحه کاربری</a></li>
+                        <li><a class="dropdown-item" href="#">اطلاعات کاربری</a></li>
+                        <li><a class="dropdown-item" href="#">تغییر رمز عبور</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">خروج</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="#" class="nav-link text-black-50">ثبت نام</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-black-50">ورود</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-black-50">سبدخرید</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

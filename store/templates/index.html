@@ -1,1 +1,24 @@
-<h1>وبسایت جنگو</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block main-content %}
+<div class="container-fluid hero">
+    <div class="container py-lg-5 py-md-3">
+        <div class="py-5 text-center shadow-lg">
+            <h3 class="unique mb-4 fw-bold" style="color: #F28123;">میوه جات & سبزیجات</h3>
+            <h1 class="mb-5 display-3 text-primary">با بهترین کیفیت و قیمت</h1>
+            <a href="#" class="btn btn-outline-secondary position-relative" style="color: #F28123;">فروشگاه</a>
+        </div>
+    </div>
+</div>
+
+<div class="auction py-5">
+    <div class="container text-end py-5 mx-5">
+        <h1 class="text-warning fw-bold">حراج آخر هفته <br> در خرید حضوری از فروشگاه</h1><br>
+        <h4 class="text-dark py-3">پنجشنبه هر هفته <br> از ساعت 12-9 شب</h4>
+        <h3 class="text-primary">منتظر حضور پرشور شما عزیزان هستیم</h3>
+    </div>
+</div>
+
+{% endblock main-content %}

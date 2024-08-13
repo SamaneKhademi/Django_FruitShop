@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.hero{
+    background: linear-gradient(rgba(240, 240, 240, 0.85), rgba(240, 240, 240, 0.85)), url("../image/banner1.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.auction{
+    background: url("../image/banner-auction.jpg");
+    background-position: center center;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size:cover;
+}
