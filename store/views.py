@@ -3,7 +3,10 @@ from .models import Product, Category
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm
+from .forms import LoginForm, SignUpForm
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
 
 def index(request):
@@ -63,3 +66,23 @@ def logout_user(request):
     logout(request)
     messages.success(request, 'با موفقیت خارج شدید.')
     return redirect('login')
+
+
+def register_user(request):
+    form = SignUpForm()
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            # Log in user
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, 'ثبت نام با موفقیت انجام شد. به صفحه کاربری وارد شدید.')
+            return redirect('home')
+        else:
+            messages.success(request, 'مشکلی در ثبت نام وجود دارد! لطفا دوباره امتحان کنید.')
+            return redirect('register')
+    else:
+        return render(request, 'register.html', locals())
