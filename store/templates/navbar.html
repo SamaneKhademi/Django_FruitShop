@@ -13,11 +13,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-black-50" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">محصولات </a>
                     <ul class="dropdown-menu text-end">
-                        <li><a class="dropdown-item" href="#">همه محصولات</a></li>
+                        <li><a class="dropdown-item" href="{% url 'all_products' %}">همه محصولات</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">میوه جات</a></li>
-                        <li><a class="dropdown-item" href="#">سبزیجات</a></li>
-                        <li><a class="dropdown-item" href="#">تخفیف ویژه</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'میوه-جات' %}">میوه جات</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'سبزیجات' %}">سبزیجات</a></li>
+                        <li><a class="dropdown-item" href="{% url 'sale_products' %}">تخفیف ویژه</a></li>
                     </ul>
                 </li>
             </ul>
