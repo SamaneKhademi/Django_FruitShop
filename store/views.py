@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Product, Category
 from django.contrib import messages
 from django.db.models import Q
+from django.contrib.auth import authenticate, login, logout
+from .forms import LoginForm
 
 
 def index(request):
@@ -38,3 +40,26 @@ def search(request):
     else:
         return render(request, 'search.html', locals())
 
+
+def login_user(request):
+    form = LoginForm()
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'با موفقیت وارد شدید.')
+            return redirect('home')
+        else:
+            messages.error(request, 'مشکلی در ورود به صفحه کاربری وجود دارد! لطفاِ دوباره امتحان کنید.')
+            return redirect('login')
+    else:
+        return render(request, 'login.html', locals())
+
+
+def logout_user(request):
+    logout(request)
+    messages.success(request, 'با موفقیت خارج شدید.')
+    return redirect('login')

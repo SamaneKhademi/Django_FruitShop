@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main-content %}
+    <div class="container py-5">
+        <div class="row my-3 flex-row-reverse">
+            <div class="col-md-6 col-xs-10 mx-auto">
+                <h4>ورود</h4>
+                <hr>
+                <form action="{% url 'login' %}" method="post" novalidate class="shadow p-5">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <small><a href="#" class="text-decoration-underline">رمز عبور خود را فراموش کرده ام.</a></small>
+                    <br>
+                    <input type="submit" class="btn btn-primary mt-4" value="ورود">
+
+                    <div class="text-center text-primary fw-bold">
+                        <small> کاربر جدید هستید؟ <a href="#" class="text-danger text-decoration-underline">ثبت نام کنید.</a></small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock main-content %}
