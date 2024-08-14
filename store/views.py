@@ -3,7 +3,7 @@ from .models import Product, Category
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, SignUpForm
+from .forms import LoginForm, SignUpForm, UpdateUserForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -86,3 +86,20 @@ def register_user(request):
             return redirect('register')
     else:
         return render(request, 'register.html', locals())
+
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_users = User.objects.get(id=request.user.id)
+        user_form = UpdateUserForm(request.POST or None, instance=current_users)
+
+        if user_form.is_valid():
+            user_form.save()
+
+            login(request, current_users)
+            messages.success(request, 'اطلاعات بروزرسانی شد.')
+            return redirect('update_user')
+        return render(request, 'update_user.html', locals())
+    else:
+        messages.success(request, 'برای دسترسی به صفحه موردنظر ابتدا وارد صفحه کاربری خود شوید.')
+        return redirect('home')
