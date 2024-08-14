@@ -7,15 +7,15 @@
         <h4><span class="text-capitalize">خوش آمدید {{ request.user }}</span></h4>
         <div class="col-md-3 border-start">
             <ul class="list-unstyled">
-                <li class="d-grid"><a href="{% url 'update_user' %}" class="btn btn-primary text-white">صفحه کاربری</a></li>
-                <li class="d-grid"><a href="{% url 'update_info' %}" class="btn btn-outline-success">اطلاعات کاربر</a></li>
+                <li class="d-grid"><a href="{% url 'update_user' %}" class="btn btn-outline-success">صفحه کاربری</a></li>
+                <li class="d-grid"><a href="{% url 'update_info' %}" class="btn btn-primary text-white">اطلاعات کاربر</a></li>
                 <li class="d-grid"><a href="{% url 'change_password' %}" class="btn btn-outline-success">تغییر رمز عبور</a></li>
             </ul>
         </div>
         <div class="col-md-8 offset-sm-1">
-            <form action="{% url 'update_user' %}" method="post" novalidate class="shadow p-5">
+            <form action="{% url 'update_info' %}" method="post" novalidate class="shadow p-5">
                 {% csrf_token %}
-                {{ user_form.as_p }}
+                {{ form.as_p }}
                 <input type="submit" value="بروزرسانی اطلاعات" class="btn btn-primary my-3">
             </form>
         </div>

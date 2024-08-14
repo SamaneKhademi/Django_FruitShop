@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UsernameField, UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
+from .models import Profile
 
 
 class LoginForm(AuthenticationForm):
@@ -29,10 +30,10 @@ class UpdateUserForm(UserChangeForm):
     password = None
     username = forms.CharField(
         label='نام کاربری',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'autofocus': True}))
+        widget=forms.TextInput(attrs={'class': 'form-control', 'autofocus': True}), required=False)
     email = forms.EmailField(
         label='ایمیل',
-        widget=forms.EmailInput(attrs={'class': 'form-control'}))
+        widget=forms.EmailInput(attrs={'class': 'form-control'}), required=False)
 
     class Meta:
         model = User
@@ -43,3 +44,15 @@ class ChangePasswordForm(PasswordChangeForm):
     old_password = forms.CharField(label='رمز عبور قبلی', widget=forms.PasswordInput(attrs={'autofocus': True, 'class': 'form-control'}))
     new_password1 = forms.CharField(label='رمز عبور جدید', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     new_password2 = forms.CharField(label='تکرار رمز عبور جدید', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+
+class UserInfoForm(forms.ModelForm):
+    phone = forms.CharField(label='تلفن', widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
+    state = forms.CharField(label='استان', widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
+    city = forms.CharField(label='شهر', widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
+    address = forms.CharField(label='آدرس', widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
+    zipcode = forms.CharField(label='کدپستی', widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
+
+    class Meta:
+        model = Profile
+        fields = ('phone', 'state', 'city', 'address', 'zipcode')

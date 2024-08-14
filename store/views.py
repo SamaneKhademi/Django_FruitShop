@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Product, Category
+from .models import Product, Category, Profile
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, SignUpForm, UpdateUserForm, ChangePasswordForm
+from .forms import LoginForm, SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -79,8 +79,8 @@ def register_user(request):
             # Log in user
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.success(request, 'ثبت نام با موفقیت انجام شد. به صفحه کاربری وارد شدید.')
-            return redirect('home')
+            messages.success(request, 'ثبت نام با موفقیت انجام شد. لطفا اطلاعات زیر را کامل کنید.')
+            return redirect('update_info')
         else:
             messages.success(request, 'مشکلی در ثبت نام وجود دارد! لطفا دوباره امتحان کنید.')
             return redirect('register')
@@ -90,13 +90,13 @@ def register_user(request):
 
 def update_user(request):
     if request.user.is_authenticated:
-        current_users = User.objects.get(id=request.user.id)
-        user_form = UpdateUserForm(request.POST or None, instance=current_users)
+        current_user = User.objects.get(id=request.user.id)
+        user_form = UpdateUserForm(request.POST or None, instance=current_user)
 
         if user_form.is_valid():
             user_form.save()
 
-            login(request, current_users)
+            login(request, current_user)
             messages.success(request, 'اطلاعات بروزرسانی شد.')
             return redirect('update_user')
         return render(request, 'update_user.html', locals())
@@ -121,6 +121,22 @@ def change_password(request):
         else:
             form = ChangePasswordForm(current_user)
             return render(request, 'change_password.html', locals())
+    else:
+        messages.success(request, 'برای دسترسی به صفحه موردنظر ابتدا وارد صفحه کاربری خود شوید.')
+        return redirect('home')
+
+
+def update_info(request):
+    if request.user.is_authenticated:
+        user_profile = Profile.objects.filter(user=request.user)
+        current_user = Profile.objects.get(user__id=request.user.id)
+        form = UserInfoForm(request.POST or None, instance=current_user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'اطلاعات شما بروز شد.')
+            return redirect('update_info')
+        return render(request, 'update_info.html', locals())
     else:
         messages.success(request, 'برای دسترسی به صفحه موردنظر ابتدا وارد صفحه کاربری خود شوید.')
         return redirect('home')
