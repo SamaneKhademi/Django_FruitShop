@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Product, Category
 from django.contrib import messages
+from django.db.models import Q
 
 
 def index(request):
@@ -27,3 +28,13 @@ def all_products(request):
 def sale_products(request):
     products = Product.objects.filter(is_sale=True)
     return render(request, 'sale_products.html', locals())
+
+def search(request):
+    query = request.GET['search']
+    products = Product.objects.filter(Q(name__icontains=query))
+    if not products:
+        messages.warning(request, 'محصول مورد نظر یافت نشد. لطفا دوباره امتحان کنید.')
+        return redirect('home')
+    else:
+        return render(request, 'search.html', locals())
+
