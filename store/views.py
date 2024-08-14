@@ -3,7 +3,7 @@ from .models import Product, Category
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, SignUpForm, UpdateUserForm
+from .forms import LoginForm, SignUpForm, UpdateUserForm, ChangePasswordForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -100,6 +100,27 @@ def update_user(request):
             messages.success(request, 'اطلاعات بروزرسانی شد.')
             return redirect('update_user')
         return render(request, 'update_user.html', locals())
+    else:
+        messages.success(request, 'برای دسترسی به صفحه موردنظر ابتدا وارد صفحه کاربری خود شوید.')
+        return redirect('home')
+
+
+def change_password(request):
+    if request.user.is_authenticated:
+        current_user = request.user
+        if request.method == 'POST':
+            form = ChangePasswordForm(current_user, request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'رمز عبور شما با موفقیت تغییر یافت.')
+                login(request, current_user)
+                return redirect('update_user')
+            else:
+                messages.warning(request, 'اطلاعات وارد شده اشتباه است. لطفا دوباره امتحان کنید.')
+                return redirect('change_password')
+        else:
+            form = ChangePasswordForm(current_user)
+            return render(request, 'change_password.html', locals())
     else:
         messages.success(request, 'برای دسترسی به صفحه موردنظر ابتدا وارد صفحه کاربری خود شوید.')
         return redirect('home')
