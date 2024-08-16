@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from .models import Category, Customer, Product, Order, Profile
+from .models import Category, Customer, Product, Order, Profile, BlogPost
 from django.contrib.auth.models import User
 
 admin.site.unregister(Group)
@@ -48,3 +48,8 @@ admin.site.unregister(User)
 
 # Re_register the new way
 admin.site.register(User, UserAdmin)
+
+
+@admin.register(BlogPost)
+class BlogPostModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'description', 'image')

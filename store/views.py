@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Product, Category, Profile
+from .models import Product, Category, Profile, BlogPost
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
@@ -7,12 +7,24 @@ from .forms import LoginForm, SignUpForm, UpdateUserForm, ChangePasswordForm, Us
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.core.paginator import Paginator
 
 
 def index(request):
     products = Product.objects.filter(is_sale=True)
+    paginator = Paginator(products, 4)  # Show 4 contacts per page.
+    page_numbers = request.GET.get('page')
+    page_objs = paginator.get_page(page_numbers)
+
+    blog_post = BlogPost.objects.all()
+    paginator = Paginator(blog_post, 4)  # Show 4 contacts per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     return render(request, 'index.html', locals())
 
+def blog(request):
+    blog_post = BlogPost.objects.all()
+    return render(request, 'blog.html', locals())
 
 def category(request, foo):
     foo = foo.replace("-", " ")
