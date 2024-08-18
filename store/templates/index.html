@@ -8,35 +8,38 @@
         <div class="py-5 text-center shadow-lg">
             <h3 class="unique mb-4 fw-bold" style="color: #F28123;">میوه جات & سبزیجات</h3>
             <h1 class="mb-5 display-3 text-primary">با بهترین کیفیت و قیمت</h1>
-            <a href="{% url 'all_products' %}" class="btn btn-outline-secondary position-relative" style="color: #F28123;">فروشگاه</a>
+            <a href="{% url 'all_products' %}" class="btn btn-outline-danger position-relative">فروشگاه</a>
         </div>
     </div>
 </div>
 
 
-<div class="py-5">
+<div class="pb-5 mx-3">
     <div class="container text-black justify-content-around py-5">
         <h3 class="float-none text-center">محصولات تخفیف ویژه</h3>
         <a class="float-start text-decoration-underline" href="{% url 'sale_products' %}"><i>مشاهده همه</i></a>
     </div>
-    <div class="container bg-danger rounded-3 py-5 mb-5">
-        <div class="row g-4">
+
+    <div class="container rounded py-5 bg-danger">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             {% for product in page_objs %}
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div class="rounded">
-                    <div class="badge bg-danger text-white position-absolute p-2" style="top: 0.7rem; right: 0.7rem">تخفیف ویژه</div>
-                    <img src="{{ product.image.url }}" class="img-fluid w-100 rounded-top" alt="" style="width: 500px; height: 250px;">
-                </div>
-                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute " style="top: 10px; left: 10px;">{{ product.category }}</div>
-                <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                    <h4 class="text-white text-center">{{ product.name }}</h4>
-                    <div class="justify-content-between text-center">
-                        <strike class="text-black-50">{{ product.price | intcomma }} تومان / کیلوگرم</strike>
-                        <p class="text-white fs-5 fw-bold mb-2">{{ product.sale_price | intcomma }} تومان / کیلوگرم</p>
-                        <form action="" class="d-inline">
-                            <input type="hidden" name="prod_id" value="{{ product.id }}">
-                            <button type="submit" class="btn btn-secondary text-dark border border-secondary rounded-pill px-3">افزودن به سبد خرید</button>
-                        </form>
+            <div class="col">
+                <div class="card h-100 border border-secondary">
+                    <div class="rounded">
+                        <div class="badge bg-danger text-white position-absolute p-2" style="top: 0.7rem; right: 0.7rem">تخفیف ویژه</div>
+                        <img src="{{ product.image.url }}" class="img-fluid w-100 rounded-top" alt="" style="max-width: 100%">
+                    </div>
+                    <div class="text-dark bg-secondary px-3 py-1 rounded position-absolute " style="top: 10px; left: 10px;">{{ product.category }}</div>
+                    <div class="card-body">
+                        <h4 class="text-dark text-center">{{ product.name }}</h4>
+                        <div class="justify-content-between text-center">
+                            <strike class="text-black-50">{{ product.price | intcomma }} تومان / کیلوگرم</strike>
+                            <p class="text-dark fs-5 fw-bold mb-2">{{ product.sale_price | intcomma }} تومان / کیلوگرم</p>
+                            <form action="" class="d-inline">
+                                <input type="hidden" name="prod_id" value="{{ product.id }}">
+                                <button type="submit" class="btn btn-secondary text-dark border border-secondary rounded-pill px-3">افزودن به سبد خرید</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -45,9 +48,9 @@
     </div>
 </div>
 
-<div class="pt-5">
-    <div class="auction py-5">
-        <div class="container text-end py-5 mx-5">
+<div class="pt-lg-5">
+    <div class="auction py-lg-5">
+        <div class="container text-end py-5 mx-lg-5">
             <h1 class="text-warning fw-bold">حراج آخر هفته <br> در خرید حضوری از فروشگاه</h1><br>
             <h4 class="text-dark py-3">پنجشنبه هر هفته <br> از ساعت 12-9 شب</h4>
             <h3 class="text-primary">منتظر حضور پرشور شما عزیزان هستیم</h3>
@@ -55,13 +58,13 @@
     </div>
 </div>
 
-<div class="py-5">
+<div class="py-lg-5 mx-3">
     <div class="container text-black justify-content-around py-5">
         <h3 class="float-none text-center">دانستنی های میوه جات و سبزیجات</h3>
         <a class="float-start text-decoration-underline" href="{% url 'blog' %}"><i>مشاهده همه</i></a>
     </div>
     <div class="container rounded py-5" style="background-color: #cce48a">
-        <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             {% for blog_post in page_obj %}
             <div class="col">
                 <div class="card h-100">

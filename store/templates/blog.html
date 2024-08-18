@@ -12,10 +12,10 @@
             {% for blog_post in blog_post %}
                 <div class="card mb-3 mx-5">
                     <div class="row g-0">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <img src="{{ blog_post.image.url }}" class="img-fluid rounded" alt="..." style="max-width: 200px;">
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{ blog_post.title }}</h5>
                                 <p class="card-text">{{ blog_post.description }}</p>
