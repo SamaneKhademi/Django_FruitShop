@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block main-content %}
+<div class="container py-5">
+    <div class="card mb-3">
+        <div class="row g-0">
+            {% if product.is_sale %}
+            <div class="col-md-4">
+                <div class="position-absolute">
+                    <div class="badge bg-danger text-white p-2">تخفیف ویژه</div>
+                    <div class="text-dark bg-secondary px-3 py-1 rounded">{{ product.category }}</div>
+                </div>
+                <img src="{{ product.image.url }}" class="img-fluid rounded-end w-100" alt="">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h4 class="card-title pb-2">{{ product.name }}</h4>
+                    <small class="text-decoration-line-through text-muted fs-6"><del>{{ product.price | intcomma }} تومان / کیلوگرم</del></small>
+                    <h5>{{ product.sale_price | intcomma }} تومان / کیلوگرم</h5>
+                    <h5 class="fw-bold pt-3">ویژه گی محصول :</h5>
+                    <p class="pb-3">{{ product.description }}</p>
+                    <form action="#" class="d-inline">
+                        <input type="hidden" name="prod_id" value="{{ product.id }}">
+                        <button type="submit" class="btn btn-primary shadow px-4 py-2 ms-3">افزودن به سبد خرید</button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-md-4">
+                <div class="position-absolute">
+                    <div class="text-dark bg-secondary px-3 py-1 rounded">{{ product.category }}</div>
+                </div>
+                <img src="{{ product.image.url }}" class="img-fluid rounded-end w-100" alt="">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h4 class="card-title pb-2">{{ product.name }}</h4>
+                    <h5>{{ product.price | intcomma }} تومان / کیلوگرم</h5>
+                    <h5 class="fw-bold pt-3">ویژه گی محصول :</h5>
+                    <p class="pb-3">{{ product.description }}</p>
+                    <form action="#" class="d-inline">
+                        <input type="hidden" name="prod_id" value="{{ product.id }}">
+                        <button type="submit" class="btn btn-primary shadow px-4 py-2 ms-3">افزودن به سبد خرید</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

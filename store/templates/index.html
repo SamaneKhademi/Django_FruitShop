@@ -25,22 +25,20 @@
             {% for product in page_objs %}
             <div class="col">
                 <div class="card h-100 border border-secondary">
-                    <div class="rounded">
-                        <div class="badge bg-danger text-white position-absolute p-2" style="top: 0.7rem; right: 0.7rem">تخفیف ویژه</div>
-                        <img src="{{ product.image.url }}" class="img-fluid w-100 rounded-top" alt="" style="max-width: 100%">
-                    </div>
-                    <div class="text-dark bg-secondary px-3 py-1 rounded position-absolute " style="top: 10px; left: 10px;">{{ product.category }}</div>
-                    <div class="card-body">
-                        <h4 class="text-dark text-center">{{ product.name }}</h4>
-                        <div class="justify-content-between text-center">
-                            <strike class="text-black-50">{{ product.price | intcomma }} تومان / کیلوگرم</strike>
-                            <p class="text-dark fs-5 fw-bold mb-2">{{ product.sale_price | intcomma }} تومان / کیلوگرم</p>
-                            <form action="" class="d-inline">
-                                <input type="hidden" name="prod_id" value="{{ product.id }}">
-                                <button type="submit" class="btn btn-secondary text-dark border border-secondary rounded-pill px-3">افزودن به سبد خرید</button>
-                            </form>
+                    <a href="{% url 'product_detail' product.id %}" class="btn">
+                        <div class="rounded">
+                            <div class="badge bg-danger text-white position-absolute p-2" style="top: 7px; right: 12px;">تخفیف ویژه</div>
+                            <img src="{{ product.image.url }}" class="img-fluid w-100 rounded" alt="" style="max-width: 100%">
                         </div>
-                    </div>
+                        <div class="text-dark bg-secondary px-3 py-1 rounded position-absolute " style="top: 7px; left: 13px;">{{ product.category }}</div>
+                        <div class="card-body">
+                            <h4 class="text-dark text-center">{{ product.name }}</h4>
+                            <div class="justify-content-between text-center">
+                                <strike class="text-black-50">{{ product.price | intcomma }} تومان / کیلوگرم</strike>
+                                <p class="text-dark fs-5 fw-bold mb-2">{{ product.sale_price | intcomma }} تومان / کیلوگرم</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
             {% endfor %}

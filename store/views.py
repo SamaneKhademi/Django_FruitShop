@@ -26,6 +26,10 @@ def blog(request):
     blog_post = BlogPost.objects.all()
     return render(request, 'blog.html', locals())
 
+def product_detail(request, pk):
+    product = Product.objects.get(id=pk)
+    return render(request, 'product_detail.html', locals())
+
 def category(request, foo):
     foo = foo.replace("-", " ")
     try:
