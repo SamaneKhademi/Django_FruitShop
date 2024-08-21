@@ -21,10 +21,7 @@
                     <h5>{{ product.sale_price | intcomma }} تومان / کیلوگرم</h5>
                     <h5 class="fw-bold pt-3">ویژه گی محصول :</h5>
                     <p class="pb-3">{{ product.description }}</p>
-                    <form action="#" class="d-inline">
-                        <input type="hidden" name="prod_id" value="{{ product.id }}">
-                        <button type="submit" class="btn btn-primary shadow px-4 py-2 ms-3">افزودن به سبد خرید</button>
-                    </form>
+                    <button type="button" value="{{ product.id }}" id="add-cart" class="btn btn-primary shadow px-4 py-2 ms-3">افزودن به سبد خرید</button>
                 </div>
             </div>
             {% else %}
@@ -40,14 +37,34 @@
                     <h5>{{ product.price | intcomma }} تومان / کیلوگرم</h5>
                     <h5 class="fw-bold pt-3">ویژه گی محصول :</h5>
                     <p class="pb-3">{{ product.description }}</p>
-                    <form action="#" class="d-inline">
-                        <input type="hidden" name="prod_id" value="{{ product.id }}">
-                        <button type="submit" class="btn btn-primary shadow px-4 py-2 ms-3">افزودن به سبد خرید</button>
-                    </form>
+                    <button type="button" value="{{ product.id }}" id="add-cart" class="btn btn-primary shadow px-4 py-2 ms-3">افزودن به سبد خرید</button>
                 </div>
             </div>
             {% endif %}
         </div>
     </div>
 </div>
+
+<script>
+// Check if button pressed
+$(document).on('click', '#add-cart', function (e){
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'cart_add' %}',
+        data: {
+            product_id: $('#add-cart').val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+
+        success: function(json){
+            console.log(json)
+        },
+        error: function(xhr, errmsg, err){
+
+        }
+    });
+})
+</script>
 {% endblock main-content %}
