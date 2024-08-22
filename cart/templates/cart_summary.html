@@ -1,1 +1,83 @@
-<h1>cart summary</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block main-content %}
+    <div class="mx-2 my-5">
+        <div class="row">
+
+            {% if cart_products %}
+            <h1 class="text-center mb-5">سبد خرید</h1>
+            <div class="col-lg-8">
+                <table class="table">
+                    <thead class="bg-light">
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th>محصول</th>
+                          <th>قیمت</th>
+                          <th>مقدار</th>
+                          <th>جمع جزء</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in cart_products %}
+                        <tr style="vertical-align: middle">
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td><a href="#" class="remove-cart btn pid="{{ item.product.id }}><i class="fa fa-trash"></i></a></td>
+                            <td>
+                                <div class="d-flex">
+                                    <a href="{% url 'product_detail' product.id %}"><img src="{{ product.image.url }}" alt="" class="card-img rounded-circle" style="width: 80px; height: 60px;"></a>
+                                </div>
+                            </td>
+                            <td>{{ product.name }}</td>
+                            <td>
+                                {% if product.is_sale %}
+                                <strike><span>{{ product.price | intcomma }} تومان</span></strike><br>
+                                <span><strong>{{ product.sale_price | intcomma }} تومان</strong></span>
+                                {% else %}
+                                <span><strong>{{ product.price | intcomma }} تومان</strong></span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="my-3">
+                                    <a class="plus-cart btn" pid="{{ product.product.id }}">
+                                        <i class="fa fa-plus-square fa-lg"></i>
+                                    </a>
+                                    <span id="quantity">{{ product.quantity }}</span><span> کیلوگرم</span>
+                                    <a class="minus-cart btn" pid="{{ product.product.id }}">
+                                        <i class="fa fa-minus-square fa-lg"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            <td>000,000 تومان</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>مقدار کل</h3>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">قیمت کالاها<span id="amount">0 تومان</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">هزینه ارسال<span>20,000 تومان</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                <div>
+                                    <strong>جمع کل </strong><small>( بعلاوه هزینه ارسال )</small>
+                                </div>
+                                <span id="totalamount"><strong>0 تومان</strong></span>
+                            </li>
+                        </ul>
+                        <div class="d-grid"><a href="#" class="btn btn-primary">تایید سفارش</a></div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <h1 class="text-center mb-5">سبد خرید شما خالی است.</h1>
+            {% endif %}
+        </div>
+    </div>
+{% endblock main-content %}
