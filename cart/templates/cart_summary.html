@@ -11,14 +11,14 @@
             <div class="col-lg-8">
                 <table class="table">
                     <thead class="bg-light">
-                        <tr>
+                        <tr style="vertical-align: top">
                           <th></th>
                           <th></th>
                           <th></th>
                           <th>محصول</th>
-                          <th>قیمت</th>
-                          <th>مقدار</th>
-                          <th>جمع جزء</th>
+                          <th>قیمت (تومان)</th>
+                          <th>مقدار (کیلوگرم)</th>
+                          <th>جمع جزء (تومان)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,27 +31,35 @@
                                     <a href="{% url 'product_detail' product.id %}"><img src="{{ product.image.url }}" alt="" class="card-img rounded-circle" style="width: 80px; height: 60px;"></a>
                                 </div>
                             </td>
-                            <td>{{ product.name }}</td>
+                            <td><a href="{% url 'product_detail' product.id %}" class="text-black-50">{{ product.name }}</a></td>
                             <td>
                                 {% if product.is_sale %}
-                                <strike><span>{{ product.price | intcomma }} تومان</span></strike><br>
-                                <span><strong>{{ product.sale_price | intcomma }} تومان</strong></span>
+                                <strike><span>{{ product.price | intcomma }}</span></strike><br>
+                                <span><strong>{{ product.sale_price | intcomma }}</strong></span>
                                 {% else %}
-                                <span><strong>{{ product.price | intcomma }} تومان</strong></span>
+                                <span><strong>{{ product.price | intcomma }}</strong></span>
                                 {% endif %}
                             </td>
                             <td>
-                                <div class="my-3">
-                                    <a class="plus-cart btn" pid="{{ product.product.id }}">
-                                        <i class="fa fa-plus-square fa-lg"></i>
-                                    </a>
-                                    <span id="quantity">{{ product.quantity }}</span><span> کیلوگرم</span>
-                                    <a class="minus-cart btn" pid="{{ product.product.id }}">
-                                        <i class="fa fa-minus-square fa-lg"></i>
-                                    </a>
+                                <div style="max-width: 60px;">
+                                    <select class="form-select form-select-sm" id="qty-cart">
+                                        <option selected>
+                                            {% for key, value in quantities.items %}
+                                                {% if key == product.id|slugify %}
+                                                    {{ value }}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </option>
+
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
                                 </div>
                             </td>
-                            <td>000,000 تومان</td>
+                            <td>000,000</td>
                         </tr>
                     {% endfor %}
                     </tbody>

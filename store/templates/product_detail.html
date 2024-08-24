@@ -21,6 +21,18 @@
                     <h5>{{ product.sale_price | intcomma }} تومان / کیلوگرم</h5>
                     <h5 class="fw-bold pt-3">ویژه گی محصول :</h5>
                     <p class="pb-3">{{ product.description }}</p>
+                    <div class="row pb-4">
+                        <div class="col-md-2 fw-bold">مقدار (کیلوگرم) : </div>
+                        <div class="col-md-2">
+                            <select class="form-select form-select-sm" id="qty-cart">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
                     <button type="button" value="{{ product.id }}" id="add-cart" class="btn btn-primary shadow px-4 py-2 ms-3">افزودن به سبد خرید</button>
                 </div>
             </div>
@@ -37,6 +49,18 @@
                     <h5>{{ product.price | intcomma }} تومان / کیلوگرم</h5>
                     <h5 class="fw-bold pt-3">ویژه گی محصول :</h5>
                     <p class="pb-3">{{ product.description }}</p>
+                    <div class="row pb-4">
+                        <div class="col-md-2 fw-bold">مقدار (کیلوگرم) : </div>
+                        <div class="col-md-2">
+                            <select class="form-select form-select-sm" id="qty-cart">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
                     <button type="button" value="{{ product.id }}" id="add-cart" class="btn btn-primary shadow px-4 py-2 ms-3">افزودن به سبد خرید</button>
                 </div>
             </div>
@@ -54,6 +78,7 @@ $(document).on('click', '#add-cart', function (e){
         url: '{% url 'cart_add' %}',
         data: {
             product_id: $('#add-cart').val(),
+            product_qty: $('#qty-cart option:selected').text(),
             csrfmiddlewaretoken: '{{ csrf_token }}',
             action: 'post'
         },
