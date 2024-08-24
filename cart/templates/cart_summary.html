@@ -25,7 +25,7 @@
                     {% for product in cart_products %}
                         <tr style="vertical-align: middle">
                             <th scope="row">{{ forloop.counter }}</th>
-                            <td><a href="#" class="remove-cart btn pid="{{ item.product.id }}><i class="fa fa-trash"></i></a></td>
+                            <td><button type="button" data-index="{{ product.id }}" class="btn delete-product"><i class="fa fa-trash" style="color: red;"></i></button></td>
                             <td>
                                 <div class="d-flex">
                                     <a href="{% url 'product_detail' product.id %}"><img src="{{ product.image.url }}" alt="" class="card-img rounded-circle" style="width: 80px; height: 60px;"></a>
@@ -93,7 +93,7 @@
     </div>
 
 <script>
-// Check if button pressed
+// Update cart
 $(document).on('click', '.update-cart', function (e){
     e.preventDefault();
     // Grab the product id
@@ -105,6 +105,31 @@ $(document).on('click', '.update-cart', function (e){
         data: {
             product_id: $(this).data('index'),
             product_qty: $('#select' + productid + ' option:selected').text(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+
+        success: function(json){
+            //console.log(json)
+            //document.getElementById("cart_quantity").textContent = json.qty
+            location.reload();
+        },
+        error: function(xhr, errmsg, err){
+
+        }
+    });
+})
+// Delete item from cart
+$(document).on('click', '.delete-product', function (e){
+    e.preventDefault();
+    // Grab the product id
+    //var productid = $(this).data('index');
+
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'cart_delete' %}',
+        data: {
+            product_id: $(this).data('index'),
             csrfmiddlewaretoken: '{{ csrf_token }}',
             action: 'post'
         },
