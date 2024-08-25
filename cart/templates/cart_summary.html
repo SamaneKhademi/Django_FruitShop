@@ -3,7 +3,7 @@
 {% load humanize %}
 
 {% block main-content %}
-    <div class="mx-2 my-5">
+    <div class="container my-5">
         <div class="row">
 
             {% if cart_products %}
@@ -18,7 +18,6 @@
                           <th>محصول</th>
                           <th>قیمت (تومان)</th>
                           <th>مقدار (کیلوگرم)</th>
-                          <th>جمع جزء (تومان)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,7 +61,6 @@
                                     <button type="button" data-index="{{ product.id }}" class="btn btn-primary fs-7 update-cart">بروزرسانی</button>
                                 </div>
                             </td>
-                            <td>000,000</td>
                         </tr>
                     {% endfor %}
                     </tbody>

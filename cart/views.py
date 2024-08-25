@@ -13,7 +13,6 @@ def cart_summary(request):
     pre_totals = cart.cart_total()
     shipped_cost = 20000
     totals = cart.cart_total() + shipped_cost
-
     return render(request, 'cart_summary.html', locals())
 
 def cart_add(request):
@@ -37,6 +36,7 @@ def cart_add(request):
         # Return response
         # response = JsonResponse({'Product Name: ': product.name})
         response = JsonResponse({'qty': cart_quantity})
+        messages.success(request, 'محصول موردنظر به سبد خرید شما اضافه شد.')
         return response
 
 def cart_update(request):
@@ -50,6 +50,7 @@ def cart_update(request):
         cart.update(product=product_id, quantity=product_qty)
 
         response = JsonResponse({'qty': product_qty})
+        messages.success(request, 'سبد خرید شما بروزرسانی شد.')
         return response
         #return redirect('cart_summary')
 
@@ -62,6 +63,7 @@ def cart_delete(request):
         cart.delete(product=product_id)
 
         response = JsonResponse({'product': product_id})
+        messages.success(request, 'محصول موردنظر از سبد خرید شما حذف شد.')
         # return redirect('cart_summary')
         return response
 
