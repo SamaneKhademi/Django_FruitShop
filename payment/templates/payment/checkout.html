@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block main-content %}
+<div class="container pb-5">
+    <div class="row mt-5">
+        <div class="col-md-5">
+            <h4>خلاصه سفارش</h4>
+            <hr>
+            {% for product in cart_products %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <p><strong>محصول : {{ product.name }}</strong></p>
+                    <p>مقدار : <small>
+                         {% for key, value in quantities.items %}
+                            {% if key == product.id|slugify %}
+                                {{ value }}
+                            {% endif %}
+                        {% endfor %}
+                    </small> کیلوگرم</p>
+
+                    <p>قیمت واحد :
+                        {% if product.is_sale %}
+                            <strike><small class="fw-bold">{{ product.price | intcomma }}</small></strike>
+                            {{ product.sale_price | intcomma }}
+                        {% else %}
+                            {{ product.price | intcomma }}
+                        {% endif %} تومان
+                    </p>
+
+                </div>
+            </div>
+            {% endfor %}
+            <p class="fw-bold">قیمت کالاها + {{ shipped_cost }} تومان = {{ totals | intcomma }} تومان</p>
+        <small>شرایط و مقررات : لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</small>
+        </div>
+        <div class="col-md-7">
+            <h4>اطلاعات صورتحساب</h4>
+            <hr>
+            <div class="card-body">
+                {{ shipping_form.as_p }}
+            </div>
+                <div class="form-check mb-3">
+                    <label class="form-label">قیمت کل : ( تومان )</label>
+                    <input type="number" class="form-control" value="{{ totals }}" readonly>
+                </div>
+                <div class="text-end">
+                    <a href="{% url 'cart_summary' %}" class="btn btn-outline-danger mt-3 px-3 fw-bold">بازگشت به سبد خرید</a>
+                    <button type="button" class="btn btn-warning mt-3 px-5 fw-bold">ادامه</button>
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}
