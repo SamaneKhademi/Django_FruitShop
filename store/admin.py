@@ -53,3 +53,4 @@ admin.site.register(User, UserAdmin)
 @admin.register(BlogPost)
 class BlogPostModelAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'description', 'image')
+
