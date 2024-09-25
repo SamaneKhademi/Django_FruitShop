@@ -28,7 +28,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'date_modified', 'phone', 'state', 'city', 'address', 'zipcode', 'old_cart')
+    list_display = ('id', 'user', 'date_modified','full_name', 'phone', 'state', 'city', 'address', 'zipcode', 'old_cart')
 
 
 # Mix profile info and user info

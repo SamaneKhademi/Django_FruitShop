@@ -47,6 +47,7 @@ class ChangePasswordForm(PasswordChangeForm):
 
 
 class UserInfoForm(forms.ModelForm):
+    full_name = forms.CharField(label='اسم و فامیل', widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     phone = forms.CharField(label='تلفن', widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     state = forms.CharField(label='استان', widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     city = forms.CharField(label='شهر', widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
@@ -55,4 +56,4 @@ class UserInfoForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('phone', 'state', 'city', 'address', 'zipcode')
+        fields = ('full_name', 'phone', 'state', 'city', 'address', 'zipcode')

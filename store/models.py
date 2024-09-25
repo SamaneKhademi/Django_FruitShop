@@ -56,6 +56,7 @@ class Order(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_modified = models.DateTimeField(User, auto_now=True)
+    full_name = models.CharField(max_length=100, default='', blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True)
     state = models.CharField(max_length=200, blank=True)
     city = models.CharField(max_length=200, blank=True)

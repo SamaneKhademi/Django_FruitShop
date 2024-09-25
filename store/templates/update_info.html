@@ -15,13 +15,8 @@
         <div class="col-md-8 offset-sm-1">
 
             <form action="{% url 'update_info' %}" method="post" novalidate class="shadow p-5">
-                <h3 class="text-center">اطلاعات صورتحساب</h3>
                 {% csrf_token %}
                 {{ form.as_p }}
-
-                <h3 class="text-center">اطلاعات ارسال</h3>
-                {{ shipping_form.as_p }}
-
                 <input type="submit" value="بروزرسانی اطلاعات" class="btn btn-primary my-3">
             </form>
         </div>

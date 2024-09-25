@@ -10,8 +10,6 @@ from django import forms
 from django.core.paginator import Paginator
 import json
 from cart.cart import Cart
-from payment.forms import ShippingForm
-from payment.models import ShippingAddress
 
 
 def index(request):
@@ -168,18 +166,12 @@ def update_info(request):
         # Get current user
         current_user = Profile.objects.get(user__id=request.user.id)
 
-        # Get current user's shipping info
-        shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
-
         # Get original user form
         form = UserInfoForm(request.POST or None, instance=current_user)
-        # Get user's shipping form
-        shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
-        if form.is_valid() or shipping_form.is_valid():
+
+        if form.is_valid():
             # Save original form
             form.save()
-            # Sane shipping form
-            shipping_form.save()
 
             messages.success(request, 'اطلاعات شما بروز شد.')
             return redirect('update_info')

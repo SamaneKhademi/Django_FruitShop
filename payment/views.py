@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from cart.cart import Cart
-from payment.forms import ShippingForm
-from payment.models import ShippingAddress
+from store.forms import UserInfoForm
+from store.models import Profile
 
 
 def payment_success(request):
@@ -18,11 +18,11 @@ def checkout(request):
 
     if request.user.is_authenticated:
         # Checkout as logged in user
-        shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
+        shipping_user = Profile.objects.get(user__id=request.user.id)
 
-        shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
+        shipping_form = UserInfoForm(request.POST or None, instance=shipping_user)
         return render(request, 'payment/checkout.html',locals())
     else:
         # Checkout as guest
-        shipping_form = ShippingForm(request.POST or None)
+        shipping_form = UserInfoForm(request.POST or None)
         return render(request, 'payment/checkout.html',locals())
